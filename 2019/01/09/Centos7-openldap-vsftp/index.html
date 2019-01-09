@@ -96,19 +96,19 @@
 
 
 
-  <meta name="description" content="前言 简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用">
+  <meta name="description" content="前言简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用树">
 <meta name="keywords" content="运维">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7+openldap+vsftp">
 <meta property="og:url" content="http://yoursite.com/2019/01/09/Centos7-openldap-vsftp/index.html">
 <meta property="og:site_name" content="你的影子闪">
-<meta property="og:description" content="前言 简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用">
+<meta property="og:description" content="前言简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用树">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2019/01/09/Centos7-openldap-vsftpd/1547021889405.jpg">
-<meta property="og:updated_time" content="2019-01-09T09:00:44.333Z">
+<meta property="og:updated_time" content="2019-01-09T09:02:24.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7+openldap+vsftp">
-<meta name="twitter:description" content="前言 简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用">
+<meta name="twitter:description" content="前言简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用树">
 <meta name="twitter:image" content="http://yoursite.com/2019/01/09/Centos7-openldap-vsftpd/1547021889405.jpg">
 
 
@@ -399,7 +399,7 @@
                 
               
 
-              <time title="创建时间：2019-01-09 16:19:10 / 修改时间：17:00:44" itemprop="dateCreated datePublished" datetime="2019-01-09T16:19:10+08:00">2019-01-09</time>
+              <time title="创建时间：2019-01-09 16:19:10 / 修改时间：17:02:24" itemprop="dateCreated datePublished" datetime="2019-01-09T16:19:10+08:00">2019-01-09</time>
             
 
             
@@ -466,9 +466,7 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
-<p>简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。<br>LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用树状的层次结构来存储数据，具有数据读取速度快，管理方便等特点。LDAP多用于构建统一身份认证系统，集中管理应用信息系统的账号，实现统一用户管理、身份认证、访问控制等功能；可解决多应用系统用户的统一管理、统一认证和统一授权；有助于减少数据冗余，提高数据安全和便于用户操作。<br>OpenLDAP：OpenLDAP是一款开源的LDAP目录服务产品，可以运行于Linux，Uinx等操作系统。其设计目的是提供一种高效、安全的方法来查询和管理数据。通过使用SASL，SSL来支持强度认证和提供完整性与安全保护，通过使用丰富的功能强大的存取控制手段来控制对权限的操作。<br>认证机制与流程<br>VSFTP与LDAP集中认证，主要通过LDAP使用vsftpd.schema定义VSFTP的各项属性，并将FTP账号信息存入LDAP数据库中，当用户向FTP服务器请求认证时，FTP服务器将认证工作交由LDAP服务器处理。<br>1．FTP用户请求连接并发送账号认证信息。<br>2．FTP服务器根据pure-ftpd.conf中配置将用户帐号信息转发到LDAP服务器验证。<br>3．LDAP服务器验证账号密码。<br>4．LDAP服务器返回验证信息和账号信息（FTPStatus等属性）。<br>5．FTP服务器根据LDAP返回信息对用户授权（是否允许连接）。<br>6．FTP服务器向用户返回授权结果。</p>
-</blockquote>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>简要介绍：在LDAP和FTP相关技术的基础上，提出一套基于LDAP和FTP技术的统一身份认证方案和账号管理系统方案，解决FTP系统的统一认证、访问控制和B/S模式下FTP账号管理等问题。<br>LDAP(Lightweight Directory Access Protocol)是一种基于X.500标准的跨平台的轻量级目录访问协议。它运行在TCP/IP协议上，对Internet有着良好的支持性，采用树状的层次结构来存储数据，具有数据读取速度快，管理方便等特点。LDAP多用于构建统一身份认证系统，集中管理应用信息系统的账号，实现统一用户管理、身份认证、访问控制等功能；可解决多应用系统用户的统一管理、统一认证和统一授权；有助于减少数据冗余，提高数据安全和便于用户操作。<br>OpenLDAP：OpenLDAP是一款开源的LDAP目录服务产品，可以运行于Linux，Uinx等操作系统。其设计目的是提供一种高效、安全的方法来查询和管理数据。通过使用SASL，SSL来支持强度认证和提供完整性与安全保护，通过使用丰富的功能强大的存取控制手段来控制对权限的操作。<br>认证机制与流程<br>VSFTP与LDAP集中认证，主要通过LDAP使用vsftpd.schema定义VSFTP的各项属性，并将FTP账号信息存入LDAP数据库中，当用户向FTP服务器请求认证时，FTP服务器将认证工作交由LDAP服务器处理。<br>1．FTP用户请求连接并发送账号认证信息。<br>2．FTP服务器根据pure-ftpd.conf中配置将用户帐号信息转发到LDAP服务器验证。<br>3．LDAP服务器验证账号密码。<br>4．LDAP服务器返回验证信息和账号信息（FTPStatus等属性）。<br>5．FTP服务器根据LDAP返回信息对用户授权（是否允许连接）。<br>6．FTP服务器向用户返回授权结果。</p>
 <h1 id="1-初始化准备"><a href="#1-初始化准备" class="headerlink" title="1.初始化准备"></a>1.初始化准备</h1><p>系统：centos7 65位<br>配置yum源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">    cp Centos-7.repo /etc/yum.repos.d/</span><br><span class="line">    cd /etc/yum.repos.d/</span><br><span class="line">    mv CentOS-Base.repo CentOS-Base.repo.bak</span><br><span class="line">    mv Centos-7.repo CentOS-Base.repo</span><br><span class="line">    yum clean all</span><br><span class="line">    yum makecache</span><br></pre></td></tr></table></figure></p>
 <p>关闭selinux和防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i ‘/SELINUX/s/enforcing/disabled/’ /etc/selinux/config &amp;&amp; setenforce 0&amp;&amp; systemctl disable firewalld.service &amp;&amp; systemctl stop firewalld.service &amp;&amp; shutdown -r now</span><br></pre></td></tr></table></figure></p>
 <h1 id="2-安装openldap"><a href="#2-安装openldap" class="headerlink" title="2.安装openldap"></a>2.安装openldap</h1><p>使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel migrationtools pam_ldap</span><br></pre></td></tr></table></figure></p>
