@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.初始化准备系统：centos7 65位配置yum源1234567wget http://mirrors.aliyun.com/repo/Centos-7.repo    cp Centos-7.repo /etc/yum.repos.d/    cd /etc/yum.repos.d/    mv CentOS-Base.repo CentOS-Base.repo.bak    mv Cent">
+<meta name="keywords" content="运维">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7+openldap+vsftp">
+<meta property="og:url" content="http://yoursite.com/2019/01/09/Centos7-openldap-vsftp/index.html">
+<meta property="og:site_name" content="你的影子闪">
+<meta property="og:description" content="1.初始化准备系统：centos7 65位配置yum源1234567wget http://mirrors.aliyun.com/repo/Centos-7.repo    cp Centos-7.repo /etc/yum.repos.d/    cd /etc/yum.repos.d/    mv CentOS-Base.repo CentOS-Base.repo.bak    mv Cent">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/01/09/Centos7+openldap_vsftpd/1547021889405.jpg">
+<meta property="og:updated_time" content="2019-01-09T08:22:30.572Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos7+openldap+vsftp">
+<meta name="twitter:description" content="1.初始化准备系统：centos7 65位配置yum源1234567wget http://mirrors.aliyun.com/repo/Centos-7.repo    cp Centos-7.repo /etc/yum.repos.d/    cd /etc/yum.repos.d/    mv CentOS-Base.repo CentOS-Base.repo.bak    mv Cent">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/09/Centos7+openldap_vsftpd/1547021889405.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/09/Centos7-openldap-vsftp/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Centos7+openldap+vsftp | 你的影子闪</title>
+  
+
+
+
+
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?5501a0f29573f6c5ad23f4d72567bba8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">你的影子闪</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">遍历山河，觉得人间值得</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-favorite">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/favorite/" rel="section"><i class="menu-item-icon fa fa-fw fa-heart"></i> <br>喜欢</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/09/Centos7-openldap-vsftp/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jq Fu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="你的影子闪">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Centos7+openldap+vsftp
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-09 16:19:10 / 修改时间：16:22:30" itemprop="dateCreated datePublished" datetime="2019-01-09T16:19:10+08:00">2019-01-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+            <span id="/2019/01/09/Centos7-openldap-vsftp/" class="leancloud_visitors" data-flag-title="Centos7+openldap+vsftp">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-初始化准备"><a href="#1-初始化准备" class="headerlink" title="1.初始化准备"></a>1.初始化准备</h1><p>系统：centos7 65位<br>配置yum源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">    cp Centos-7.repo /etc/yum.repos.d/</span><br><span class="line">    cd /etc/yum.repos.d/</span><br><span class="line">    mv CentOS-Base.repo CentOS-Base.repo.bak</span><br><span class="line">    mv Centos-7.repo CentOS-Base.repo</span><br><span class="line">    yum clean all</span><br><span class="line">    yum makecache</span><br></pre></td></tr></table></figure></p>
+<p>关闭selinux和防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i ‘/SELINUX/s/enforcing/disabled/’ /etc/selinux/config &amp;&amp; setenforce 0&amp;&amp; systemctl disable firewalld.service &amp;&amp; systemctl stop firewalld.service &amp;&amp; shutdown -r now</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-安装openldap"><a href="#2-安装openldap" class="headerlink" title="2.安装openldap"></a>2.安装openldap</h1><p>使用如下命令安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel migrationtools pam_ldap</span><br></pre></td></tr></table></figure></p>
+<p>查看版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@centos-linux1810 ~]# slapd -VV</span><br><span class="line">@(#) $OpenLDAP: slapd 2.4.44 (Oct 30 2018 23:14:27) $</span><br><span class="line">        mockbuild@x86-01.bsys.centos.org:/builddir/build/BUILD/openldap-2.4.44/openldap-2.4.44/servers/slapd</span><br></pre></td></tr></table></figure></p>
+<h1 id="3-配置openldap"><a href="#3-配置openldap" class="headerlink" title="3.配置openldap"></a>3.配置openldap</h1><h2 id="3-1设置OpenLDAP的管理员密码"><a href="#3-1设置OpenLDAP的管理员密码" class="headerlink" title="3.1设置OpenLDAP的管理员密码"></a>3.1设置OpenLDAP的管理员密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slappasswd -s 123456</span><br></pre></td></tr></table></figure>
+<p>保存输出后的字段，等会会在配置文件中会使用到。</p>
+<h2 id="3-2修改olcDatabase-2-hdb-ldif文件"><a href="#3-2修改olcDatabase-2-hdb-ldif文件" class="headerlink" title="3.2修改olcDatabase={2}hdb.ldif文件"></a>3.2修改olcDatabase={2}hdb.ldif文件</h2><p>vim /etc/openldap/slapd.d/cn\=config/olcDatabase\={2}hdb.ldif<br>修改如下两行内容，并增加一行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">olcSuffix: dc=myldap,dc=com</span><br><span class="line">olcRootDN: cn=Manager,dc=myldap,dc=com</span><br><span class="line">olcRootPW: &#123;SSHA&#125;SWksXFfh42io+UQqEgWXvc/OQzvjeEcJ</span><br></pre></td></tr></table></figure></p>
+<p>注意：其中cn=Manager中的Manager表示OpenLDAP管理员的用户名，而olcRootPW表示OpenLDAP管理员的密码</p>
+<h2 id="3-3修改olcDatabase-1-monitor-ldif文件"><a href="#3-3修改olcDatabase-1-monitor-ldif文件" class="headerlink" title="3.3修改olcDatabase={1}monitor.ldif文件"></a>3.3修改olcDatabase={1}monitor.ldif文件</h2><p>vim /etc/openldap/slapd.d/cn\=config/olcDatabase\={1}monitor.ldif<br>修改如下内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">olcAccess: &#123;0&#125;to * by dn.base=&quot;gidNumber=0+uidNumber=0,cn=peercred,cn=extern</span><br><span class="line"> al,cn=auth&quot; read by dn.base=&quot;cn=Manager,dc=myldap,dc=com&quot; read by * none</span><br></pre></td></tr></table></figure></p>
+<p>注意：该修改中的dn.base是修改OpenLDAP的管理员的相关信息的<br>验证OpenLDAP的基本配置，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">slaptest -u</span><br></pre></td></tr></table></figure></p>
+<p>通过上述命令，我们可以很明显的看出OpenLDAP的基本配置是没有问题。<br>启动OpenLDAP服务，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable slapd</span><br><span class="line">systemctl start slapd</span><br><span class="line">systemctl status slapd</span><br></pre></td></tr></table></figure></p>
+<p>OpenLDAP默认监听的端口是389，下面我们来看下是不是389端口，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tpln | grep 389</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-4-配置OpenLDAP数据库"><a href="#3-4-配置OpenLDAP数据库" class="headerlink" title="3.4.配置OpenLDAP数据库"></a>3.4.配置OpenLDAP数据库</h2><p>OpenLDAP默认使用的数据库是BerkeleyDB，现在来开始配置OpenLDAP数据库，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG</span><br><span class="line">chown ldap:ldap -R /var/lib/ldap</span><br><span class="line">chmod 700 -R /var/lib/ldap</span><br></pre></td></tr></table></figure></p>
+<p>注意：/var/lib/ldap/就是BerkeleyDB数据库默认存储的路径。</p>
+<h2 id="3-5-导入基本Schema"><a href="#3-5-导入基本Schema" class="headerlink" title="3.5.导入基本Schema"></a>3.5.导入基本Schema</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif</span><br><span class="line">ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif</span><br><span class="line">ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif</span><br></pre></td></tr></table></figure>
+<h2 id="3-6-修改migrate-common-ph文件"><a href="#3-6-修改migrate-common-ph文件" class="headerlink" title="3.6.修改migrate_common.ph文件"></a>3.6.修改migrate_common.ph文件</h2><p>vim /usr/share/migrationtools/migrate_common.ph<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$DEFAULT_MAIL_DOMAIN = &quot;myldap.com&quot;;</span><br><span class="line">$DEFAULT_BASE = &quot;dc=myldap,dc=com&quot;;</span><br><span class="line">$EXTENDED_SCHEMA = 1;</span><br></pre></td></tr></table></figure></p>
+<p>到此OpenLDAP的配置就已经全部完毕，下面我们来开始添加用户到OpenLDAP中。</p>
+<h1 id="4-添加用户及用户组"><a href="#4-添加用户及用户组" class="headerlink" title="4.添加用户及用户组"></a>4.添加用户及用户组</h1><p>默认情况下OpenLDAP是没有普通用户的，但是有一个管理员用户。管理用户就是前面我们刚刚配置的root。<br>现在我们把系统中的用户，添加到OpenLDAP中。为了进行区分，我们现在新加两个用户ldapuser1和ldapuser2，和两个用户组ldapgroup1和ldapgroup2，如下：<br>添加用户组，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">groupadd ldapgroup1</span><br><span class="line">groupadd ldapgroup2</span><br></pre></td></tr></table></figure></p>
+<p>添加用户并设置密码，使用如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">useradd -g ldapgroup1 ldapuser1</span><br><span class="line">useradd -g ldapgroup2 ldapuser2</span><br><span class="line">echo ‘123456’ | passwd –-stdin ldapuser1</span><br><span class="line">echo ‘123456’ | passwd –-stdin ldapuser2</span><br></pre></td></tr></table></figure></p>
+<p>把刚刚添加的用户和用户组提取出来，这包括该用户的密码和其他相关属性，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep “:10[0-9][0-9]” /etc/passwd &gt; /root/users</span><br><span class="line">grep “:10[0-9][0-9]” /etc/group &gt; /root/groups</span><br></pre></td></tr></table></figure></p>
+<p>根据上述生成的用户和用户组属性，使用migrate_passwd.pl文件生成要添加用户和用户组的ldif，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/migrationtools/migrate_passwd.pl /root/users &gt; /root/users.ldif</span><br><span class="line">/usr/share/migrationtools/migrate_group.pl /root/groups &gt; /root/groups.ldif</span><br><span class="line">cat users.ldif</span><br><span class="line">cat groups.ldif</span><br></pre></td></tr></table></figure></p>
+<p>注意：后续如果要新加用户到OpenLDAP中的话，我们可以直接修改users.ldif文件即可。</p>
+<h1 id="5-导入用户及用户组到OpenLDAP数据库"><a href="#5-导入用户及用户组到OpenLDAP数据库" class="headerlink" title="5.导入用户及用户组到OpenLDAP数据库"></a>5.导入用户及用户组到OpenLDAP数据库</h1><p>配置openldap基础的数据库，如下：cat base.ldif<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">dn: dc=myldap,dc=com</span><br><span class="line">dc: myldap</span><br><span class="line">objectClass: top</span><br><span class="line">objectClass: domain</span><br><span class="line"></span><br><span class="line">dn: cn=Manager,dc=myldap,dc=com</span><br><span class="line">cn: Manager</span><br><span class="line">objectClass: organizationalRole</span><br><span class="line">description: Directory Manager</span><br><span class="line"></span><br><span class="line">dn: ou=People,dc=myldap,dc=com</span><br><span class="line">ou: People</span><br><span class="line">objectClass: top</span><br><span class="line">objectClass: organizationalUnit</span><br><span class="line"></span><br><span class="line">dn: ou=Group,dc=myldap,dc=com</span><br><span class="line">ou: Group</span><br><span class="line">objectClass: top</span><br><span class="line">objectClass: organizationalUnit</span><br></pre></td></tr></table></figure></p>
+<p>导入基础数据库，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -x -w &quot;123456&quot; -D &quot;cn=Manager,dc=myldap,dc=com&quot; -f /root/base.ldif</span><br></pre></td></tr></table></figure></p>
+<p>导入用户到数据库，使用如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -x -w &quot;123456&quot; -D &quot;cn=Manager,dc=myldap,dc=com&quot; -f /root/users.ldif</span><br></pre></td></tr></table></figure></p>
+<p>导入用户组到数据库，使用如下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -x -w &quot;123456&quot; -D &quot;cn=Manager,dc=myldap,dc=com&quot; -f /root/groups.ldif</span><br></pre></td></tr></table></figure></p>
+<h1 id="6-把OpenLDAP用户加入到用户组"><a href="#6-把OpenLDAP用户加入到用户组" class="headerlink" title="6.把OpenLDAP用户加入到用户组"></a>6.把OpenLDAP用户加入到用户组</h1><p>尽管我们已经把用户和用户组信息，导入到OpenLDAP数据库中了。但实际上目前OpenLDAP用户和用户组之间是没有任何关联的。<br>如果我们要把OpenLDAP数据库中的用户和用户组关联起来的话，我们还需要做另外单独的配置。<br>现在我们要把ldapuser1用户加入到ldapgroup1用户组，需要新建添加用户到用户组的ldif文件，如下：<br>cat users_to_groups.ldif<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dn: cn=ldapgroup1,ou=Group,dc=myldap,dc=com</span><br><span class="line">changetype: modify</span><br><span class="line">add: memberuid</span><br><span class="line">memberuid: ldapuser1</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapadd -x -w &quot;123456&quot; -D &quot;cn=Manager,dc=myldap,dc=com&quot; -f /root/users_to_groups.ldif</span><br></pre></td></tr></table></figure>
+<p>查询添加的OpenLDAP用户组信息，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -LLL -x -D &apos;cn=Manager,dc=myldap,dc=com&apos; -w &quot;123456&quot; -b &apos;dc=myldap,dc=com&apos; &apos;cn=ldapgroup1&apos;</span><br></pre></td></tr></table></figure></p>
+<h1 id="7-开启OpenLDAP日志访问功能"><a href="#7-开启OpenLDAP日志访问功能" class="headerlink" title="7.开启OpenLDAP日志访问功能"></a>7.开启OpenLDAP日志访问功能</h1><p>默认情况下OpenLDAP是没有启用日志记录功能的，但是在实际使用过程中，我们为了定位问题需要使用到OpenLDAP日志。<br>新建日志配置ldif文件，如下：<br>cat loglevel.ldif<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dn: cn=config</span><br><span class="line">changetype: modify</span><br><span class="line">replace: olcLogLevel</span><br><span class="line">olcLogLevel: stats</span><br></pre></td></tr></table></figure></p>
+<p>导入到OpenLDAP中，并重启OpenLDAP服务，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ldapmodify -Y EXTERNAL -H ldapi:/// -f /root/loglevel.ldif</span><br><span class="line">systemctl restart slapd</span><br></pre></td></tr></table></figure></p>
+<p>修改rsyslog配置文件，并重启rsyslog服务，如下：<br>vim /etc/rsyslog.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">local4.* /var/log/slapd.log</span><br><span class="line">systemctl restart rsyslog</span><br></pre></td></tr></table></figure></p>
+<h1 id="8-安装和配置LDAP管理工具PHPldapadmin"><a href="#8-安装和配置LDAP管理工具PHPldapadmin" class="headerlink" title="8.安装和配置LDAP管理工具PHPldapadmin"></a>8.安装和配置LDAP管理工具PHPldapadmin</h1><p>首先安装apache和php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install httpd php php-ldap php-gd php-mbstring php-pear php-bcmath php-xml</span><br></pre></td></tr></table></figure></p>
+<p>下载安装包phpldapadmin-1.2.3.tgz<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf phpldapadmin-1.2.3.tgz</span><br><span class="line">cp -r phpldapadmin-1.2.3 /var/www/html/</span><br><span class="line">cd /var/www/html/</span><br><span class="line">mv phpldapadmin-1.2.3 phpldapadmin</span><br><span class="line">cd phpldapadmin/config/</span><br><span class="line">cp config.php.example config.php</span><br></pre></td></tr></table></figure></p>
+<p>vim config.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$servers = new Datastore();</span><br><span class="line">$servers-&gt;newServer(&apos;ldap_pla&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;server&apos;,&apos;name&apos;,&apos;My LDAP Server&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;server&apos;,&apos;host&apos;,&apos;10.211.55.37&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;server&apos;,&apos;port&apos;,389);</span><br><span class="line">$servers-&gt;setValue(&apos;server&apos;,&apos;base&apos;,array(&apos;dc=myldap,dc=com&apos;));</span><br><span class="line">$servers-&gt;setValue(&apos;login&apos;,&apos;auth_type&apos;,&apos;session&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;login&apos;,&apos;bind_id&apos;,&apos;cn=Manager,dc=myldap,dc=com&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;login&apos;,&apos;bind_pass&apos;,&apos;123456&apos;);</span><br><span class="line">$servers-&gt;setValue(&apos;server&apos;,&apos;tls&apos;,false);</span><br></pre></td></tr></table></figure></p>
+<p>启动httpd，登陆phpldapadmin,在浏览器输入<br>systemctl start httpd<br><a href="http://10.211.55.37/phpldapadmin" target="_blank" rel="noopener">http://10.211.55.37/phpldapadmin</a></p>
+<h1 id="9-配置vsftpd"><a href="#9-配置vsftpd" class="headerlink" title="9.配置vsftpd"></a>9.配置vsftpd</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y vsftpd</span><br></pre></td></tr></table></figure>
+<p>vim /etc/nslcd.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uri ldap://10.211.55.37/</span><br><span class="line">base dc=myldap,dc=com</span><br><span class="line">ssl no</span><br></pre></td></tr></table></figure></p>
+<p>重启nslcd服务<br>systemctl restart nslcd<br>修改ldap.conf<br>vim /etc/openldap/ldap.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">host    10.211.55.37</span><br><span class="line">BASE    dc=myldap,dc=com</span><br><span class="line">URI     ldap://10.211.55.37</span><br><span class="line">binddn  cn=Manager,dc=myldap,dc=com</span><br><span class="line">bindpw  123456</span><br></pre></td></tr></table></figure></p>
+<p>vim /etc/pam.d/vsftpd<br>添加以下两行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auth       required     pam_ldap.so</span><br><span class="line">account    required     pam_ldap.so</span><br></pre></td></tr></table></figure></p>
+<p>修改vsftpd配置文件vim /etc/vsftpd/vsftpd.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">anonymous_enable=NO</span><br><span class="line">local_enable=YES</span><br><span class="line">write_enable=YES</span><br><span class="line">local_umask=022</span><br><span class="line">anon_upload_enable=YES</span><br><span class="line">anon_mkdir_write_enable=YES</span><br><span class="line">dirmessage_enable=YES</span><br><span class="line">xferlog_enable=YES</span><br><span class="line">connect_from_port_20=YES</span><br><span class="line">xferlog_std_format=YES</span><br><span class="line">chroot_local_user=YES</span><br><span class="line">listen=YES</span><br><span class="line">listen_ipv6=NO</span><br><span class="line">pam_service_name=vsftpd</span><br><span class="line">userlist_enable=YES</span><br><span class="line">tcp_wrappers=YES</span><br><span class="line">guest_enable=YES</span><br><span class="line">guest_username=ftp</span><br><span class="line">local_root=/opt/ftpdata</span><br><span class="line">allow_writeable_chroot=YES</span><br></pre></td></tr></table></figure></p>
+<p>systemctl restart vsftpd<br><img src="/2019/01/09/Centos7-openldap-vsftp/../Centos7+openldap_vsftpd/1547021889405.jpg" alt="1547021889405.jpg"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维/" rel="tag"># 运维</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/07/Centos7安装jumpserver跳板机/" rel="next" title="Centos7安装jumpserver跳板机">
+                <i class="fa fa-chevron-left"></i> Centos7安装jumpserver跳板机
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjA0NS8xODU5Mg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jq Fu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-初始化准备"><span class="nav-number">1.</span> <span class="nav-text">1.初始化准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装openldap"><span class="nav-number">2.</span> <span class="nav-text">2.安装openldap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-配置openldap"><span class="nav-number">3.</span> <span class="nav-text">3.配置openldap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1设置OpenLDAP的管理员密码"><span class="nav-number">3.1.</span> <span class="nav-text">3.1设置OpenLDAP的管理员密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2修改olcDatabase-2-hdb-ldif文件"><span class="nav-number">3.2.</span> <span class="nav-text">3.2修改olcDatabase={2}hdb.ldif文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3修改olcDatabase-1-monitor-ldif文件"><span class="nav-number">3.3.</span> <span class="nav-text">3.3修改olcDatabase={1}monitor.ldif文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-配置OpenLDAP数据库"><span class="nav-number">3.4.</span> <span class="nav-text">3.4.配置OpenLDAP数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-导入基本Schema"><span class="nav-number">3.5.</span> <span class="nav-text">3.5.导入基本Schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-修改migrate-common-ph文件"><span class="nav-number">3.6.</span> <span class="nav-text">3.6.修改migrate_common.ph文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-添加用户及用户组"><span class="nav-number">4.</span> <span class="nav-text">4.添加用户及用户组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-导入用户及用户组到OpenLDAP数据库"><span class="nav-number">5.</span> <span class="nav-text">5.导入用户及用户组到OpenLDAP数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-把OpenLDAP用户加入到用户组"><span class="nav-number">6.</span> <span class="nav-text">6.把OpenLDAP用户加入到用户组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-开启OpenLDAP日志访问功能"><span class="nav-number">7.</span> <span class="nav-text">7.开启OpenLDAP日志访问功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-安装和配置LDAP管理工具PHPldapadmin"><span class="nav-number">8.</span> <span class="nav-text">8.安装和配置LDAP管理工具PHPldapadmin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-配置vsftpd"><span class="nav-number">9.</span> <span class="nav-text">9.配置vsftpd</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jq Fu</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/01/09/Centos7-openldap-vsftp/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log(`Failed to save Visitor num, with error message: ${responseJSON.error}`);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log(`LeanCloud Counter Error: ${responseJSON.code} ${responseJSON.error}`);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + '3EEOyvcmsUN5iypPUe6caTme-gzGzoHsz')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': '3EEOyvcmsUN5iypPUe6caTme-gzGzoHsz',
+                'X-LC-Key': '7VXSuHFvPI8UFJFTlY5y3Rxg',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
