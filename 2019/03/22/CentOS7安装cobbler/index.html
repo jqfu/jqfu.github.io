@@ -104,22 +104,22 @@
 <meta property="og:site_name" content="你的影子闪">
 <meta property="og:description" content="一、cobbler介绍1.前言cobbler 是基于 python 语言开发的 pxe 二次封装的网络安装服务；可以多系统选自自动化安装配置。可以通过 Web 图形化界面配置，其安装包为 cobbler，在 epel 源上，配置过程中某些过程可能需要依赖互联网环境。 2.Cobbler 可以干什么使用 Cobbler，无需进行人工干预即可安装机器。Cobbler 设置一个 PXE 引导环境（它还可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/1.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/2.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/3.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/4.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/5.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/6.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/7.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/8.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/9.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/10.jgp">
-<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/11.jgp">
-<meta property="og:updated_time" content="2019-04-29T09:35:54.489Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/4.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/5.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/6.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/7.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/8.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/9.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/10.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/11.jpg">
+<meta property="og:updated_time" content="2019-04-29T09:40:35.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS7安装cobbler">
 <meta name="twitter:description" content="一、cobbler介绍1.前言cobbler 是基于 python 语言开发的 pxe 二次封装的网络安装服务；可以多系统选自自动化安装配置。可以通过 Web 图形化界面配置，其安装包为 cobbler，在 epel 源上，配置过程中某些过程可能需要依赖互联网环境。 2.Cobbler 可以干什么使用 Cobbler，无需进行人工干预即可安装机器。Cobbler 设置一个 PXE 引导环境（它还可">
-<meta name="twitter:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/1.jgp">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/22/CentOS7安装cobbler/1.jpg">
 
 
 
@@ -426,7 +426,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-29 17:35:54" itemprop="dateModified" datetime="2019-04-29T17:35:54+08:00">2019-04-29</time>
+                <time title="修改时间：2019-04-29 17:40:35" itemprop="dateModified" datetime="2019-04-29T17:40:35+08:00">2019-04-29</time>
               
             
           </span>
@@ -492,20 +492,20 @@
 <h2 id="2-Cobbler-可以干什么"><a href="#2-Cobbler-可以干什么" class="headerlink" title="2.Cobbler 可以干什么"></a>2.Cobbler 可以干什么</h2><p>使用 Cobbler，无需进行人工干预即可安装机器。Cobbler 设置一个 PXE 引导环境（它还可以使用 yaboot 支持 PowerPC），并控制原装相关的所有方面，比如网络引导服务（DHCP 和 TFTP）与存储库镜像。当希望安装一台新机器时，Cobbler 可以：<br>1）使用一个以前定义的模板来配置 DHCP 服务（如果启用了管理 DHCP）<br>2）讲一个存储库（yum 或 rsync）建立镜像或解压缩一个媒介，以注册一个新操作系统<br>3）在 DHCP 配置文件中为需要安装的机器创建一个条目，并使用指定的参数（IP 和 MAC）<br>4）在 TFTP 服务目录下创建适当的 PXE 文件<br>5）重新启动 DHCP 服务来反应新的更改<br>6）重新启动机器以开始安装（如果电源管理已启动）</p>
 <h2 id="3-Cobbler-支持的系统和功能"><a href="#3-Cobbler-支持的系统和功能" class="headerlink" title="3.Cobbler 支持的系统和功能"></a>3.Cobbler 支持的系统和功能</h2><p>Cobbler 支持众多的发行版：Redhat、Fedora、CentOS、Debian、Ubuntu 和 SUSE。当添加一个操作系统（通常通过使用 ISO 文件）时，Cobbler 知道如何解压缩合适的文件并调整网络服务，以正确引导机器。<br>Cobbler 可以使用 kickstart 模板。基于 Redhat 或 Fedora 的系统使用 kickstart 文件来自动化安装流程，通过使用模板，就会拥有基本 kickstart 模板，然后定义如何针对一种配置文件或机器配置而替换其中的变量。例如，一个模板可能包含两个变量 $domain 和 $machine_name。在 Cobbler 配置中，一个配置文件指定 domain=mydomain.com，并且每台使用该配置文件的机器在 machine_name 变量中指定其名称。该配置文件的所有机器都是用相同的 kickstart 安装且针对 domain=mydomain.com 进行配置，但每台机器拥有其自己的机器名称。仍然可以使用 kickstart 模板在不同的域中安装其他机器并使用不同的机器名称。<br>为了协助管理系统，Cobbler 可通过 fence_scripts 连接到各个电源管理环境。Cobbler 支持 apc_snmp、bladecenter、bullpap、drac、ether_wake、ilo、integrity、ipmilan、ipmitool、Ipar、rsa、virsh 和 wti。要重新安装一台机器，可运行 reboot system foo 命令，而且 Cobbler 会使用必要的和信息来为您运行恰当的 fence scripts（比如机器插槽数）。<br>除了这些特性，还可以使用一个配置管理系统（CMS）。有两种选择：该工具内的一个内部系统，或者现成的外部 CMS，比如 Chef 或 Puppet。借助内部系统，你可以指定文件模板，这些模板会依据配置参数进行处理（与 kickstart 模板的处理方式一样），然后复制到你指定的位置。如果必须自动将配置文件部署到特定机器，那么此功能很有用。<br>使用 koan 客户端，Cobbler 可从客户端配置虚拟机并重新安装系统。</p>
 <h2 id="4-Cobbler-提供的服务集成"><a href="#4-Cobbler-提供的服务集成" class="headerlink" title="4.Cobbler 提供的服务集成"></a>4.Cobbler 提供的服务集成</h2><p>PXE 服务支持<br>DHCP 服务管理<br>DNS 服务管理（可选bind，dnsmasq）<br>电源管理<br>Kickstart 服务支持<br>yum 仓库管理<br>TFTP （PXE 启动时需要）<br>Apache（提供 kickstart 的安装源，并提供定制化的 kickstart 配置）<br>同时，它和 apache 做了深度整合</p>
-<h2 id="5-PXE-工作流程图"><a href="#5-PXE-工作流程图" class="headerlink" title="5.PXE 工作流程图"></a>5.PXE 工作流程图</h2><p>因为 cobbler 基于 pxe 二次封装的，所以了解 PXE 工作流程也重要，图如下：<br><img src="/2019/03/22/CentOS7安装cobbler/1.jgp" alt="1"></p>
-<h2 id="6-PXE-Kickstart-无人值守安装操作系统完整过程"><a href="#6-PXE-Kickstart-无人值守安装操作系统完整过程" class="headerlink" title="6.PXE + Kickstart 无人值守安装操作系统完整过程"></a>6.PXE + Kickstart 无人值守安装操作系统完整过程</h2><p><img src="/2019/03/22/CentOS7安装cobbler/2.jgp" alt="2"><br>从上图可以看出：</p>
+<h2 id="5-PXE-工作流程图"><a href="#5-PXE-工作流程图" class="headerlink" title="5.PXE 工作流程图"></a>5.PXE 工作流程图</h2><p>因为 cobbler 基于 pxe 二次封装的，所以了解 PXE 工作流程也重要，图如下：<br><img src="/2019/03/22/CentOS7安装cobbler/1.jpg" alt="1"></p>
+<h2 id="6-PXE-Kickstart-无人值守安装操作系统完整过程"><a href="#6-PXE-Kickstart-无人值守安装操作系统完整过程" class="headerlink" title="6.PXE + Kickstart 无人值守安装操作系统完整过程"></a>6.PXE + Kickstart 无人值守安装操作系统完整过程</h2><p><img src="/2019/03/22/CentOS7安装cobbler/2.jpg" alt="2"><br>从上图可以看出：</p>
 <ul>
 <li>配置服务，比如 DHCP、TFTP、（HTTP、FTP和NFS）</li>
 <li>在 DHCP 和 TFTP 配置文件中填入哥哥客户端机器的信息</li>
 <li>创建自动部署文件（比如 kickstart）</li>
-<li>将安装媒介解压缩到 HTTP/FTP/NFS 存储库中<h2 id="7-cobbler-的组成"><a href="#7-cobbler-的组成" class="headerlink" title="7.cobbler 的组成"></a>7.cobbler 的组成</h2>Cobbler 的配置结构基于一组注册的对象。没个对象表示一个与另一个实体相关联的实体（该对象指向另一个对象，或者另一个对象指向该对象）。当一个对象指向另一个对象时，它就集成了被指向对象的数据，并可覆盖或添加更多特定信息。<br>以下对象类型的定义为：<br><strong>发行版：</strong>表示一个操作系统。它承载了内核和 initrd 的信息，以及内核参数等其他数据；<br><strong>配置文件：</strong>包含一个发行版、一个 kickstart 文件以及可能的存储库，还包含更多特定的内核参数等其他数据；<br><strong>系统：</strong>表示要配给的机器。它把汗一个配置文件或一个镜像，还包含 IP 和 MAC；地址、电源管理（地址、凭据、类型）以及更为专业的数据等信息；<br><strong>存储库：</strong>保存一个 yum 或 rsync 存储库的镜像信息；<br><strong>镜像：</strong>可替换一个包含不属于此类别的文件的发行版对象（例如，无法分为内核和 initrd 的对象）；<br>基于注册的对象以及各个对象之间的关联，Cobbler 知道如何更改文件系统以反应具体配置。因为系统配置的内部是抽象的，所以可以仅关注想要执行的操作。<h2 id="8-cobbler-的工作流程"><a href="#8-cobbler-的工作流程" class="headerlink" title="8.cobbler 的工作流程"></a>8.cobbler 的工作流程</h2><img src="/2019/03/22/CentOS7安装cobbler/3.jgp" alt="3"><h1 id="二、cobbler-安装"><a href="#二、cobbler-安装" class="headerlink" title="二、cobbler 安装"></a>二、cobbler 安装</h1>必要服务<br>1）cobbler    （cobbler 的核心）<br>2）httpd      （提供 cobbler 的 web 界面）<br>3）dhcpd      （为自动安装系统分配 IP 地址）<br>4）epel-release（为之提供yum源）<br>5）rsync      （cobbler 需要同步信息）<br>6）cobbler-web （cobbler 的一个 web 插件）<br>7）xinetd     （为 rsync 和 tftp 的守护进程）<br>8）tftp       （传送安装的一些文件的 类似ftp）<h2 id="1-关闭防火墙和-selinux"><a href="#1-关闭防火墙和-selinux" class="headerlink" title="1.关闭防火墙和 selinux"></a>1.关闭防火墙和 selinux</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">sed -i &apos;/SELINUX/s/enforcing/disabled/&apos; /etc/selinux/config</span><br><span class="line">shutdown -r now</span><br></pre></td></tr></table></figure>
+<li>将安装媒介解压缩到 HTTP/FTP/NFS 存储库中<h2 id="7-cobbler-的组成"><a href="#7-cobbler-的组成" class="headerlink" title="7.cobbler 的组成"></a>7.cobbler 的组成</h2>Cobbler 的配置结构基于一组注册的对象。没个对象表示一个与另一个实体相关联的实体（该对象指向另一个对象，或者另一个对象指向该对象）。当一个对象指向另一个对象时，它就集成了被指向对象的数据，并可覆盖或添加更多特定信息。<br>以下对象类型的定义为：<br><strong>发行版：</strong>表示一个操作系统。它承载了内核和 initrd 的信息，以及内核参数等其他数据；<br><strong>配置文件：</strong>包含一个发行版、一个 kickstart 文件以及可能的存储库，还包含更多特定的内核参数等其他数据；<br><strong>系统：</strong>表示要配给的机器。它把汗一个配置文件或一个镜像，还包含 IP 和 MAC；地址、电源管理（地址、凭据、类型）以及更为专业的数据等信息；<br><strong>存储库：</strong>保存一个 yum 或 rsync 存储库的镜像信息；<br><strong>镜像：</strong>可替换一个包含不属于此类别的文件的发行版对象（例如，无法分为内核和 initrd 的对象）；<br>基于注册的对象以及各个对象之间的关联，Cobbler 知道如何更改文件系统以反应具体配置。因为系统配置的内部是抽象的，所以可以仅关注想要执行的操作。<h2 id="8-cobbler-的工作流程"><a href="#8-cobbler-的工作流程" class="headerlink" title="8.cobbler 的工作流程"></a>8.cobbler 的工作流程</h2><img src="/2019/03/22/CentOS7安装cobbler/3.jpg" alt="3"><h1 id="二、cobbler-安装"><a href="#二、cobbler-安装" class="headerlink" title="二、cobbler 安装"></a>二、cobbler 安装</h1>必要服务<br>1）cobbler    （cobbler 的核心）<br>2）httpd      （提供 cobbler 的 web 界面）<br>3）dhcpd      （为自动安装系统分配 IP 地址）<br>4）epel-release（为之提供yum源）<br>5）rsync      （cobbler 需要同步信息）<br>6）cobbler-web （cobbler 的一个 web 插件）<br>7）xinetd     （为 rsync 和 tftp 的守护进程）<br>8）tftp       （传送安装的一些文件的 类似ftp）<h2 id="1-关闭防火墙和-selinux"><a href="#1-关闭防火墙和-selinux" class="headerlink" title="1.关闭防火墙和 selinux"></a>1.关闭防火墙和 selinux</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">sed -i &apos;/SELINUX/s/enforcing/disabled/&apos; /etc/selinux/config</span><br><span class="line">shutdown -r now</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="2-cobbler-安装"><a href="#2-cobbler-安装" class="headerlink" title="2.cobbler 安装"></a>2.cobbler 安装</h2><h3 id="1-安装第三方源："><a href="#1-安装第三方源：" class="headerlink" title="1.安装第三方源："></a>1.安装第三方源：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y net-tools</span><br><span class="line">rpm -Uvh https:/dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br></pre></td></tr></table></figure>
 <h3 id="2-cobbler-安装，fence-agents-可不安装，tftp-通过-xinetd-管理"><a href="#2-cobbler-安装，fence-agents-可不安装，tftp-通过-xinetd-管理" class="headerlink" title="2.cobbler 安装，fence-agents 可不安装，tftp 通过 xinetd 管理"></a>2.cobbler 安装，fence-agents 可不安装，tftp 通过 xinetd 管理</h3><p>cobbler 和 apache 有深度配合所以安装 apache，不要安装 nginx 否则生成不了相关配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y httpd dhcpd tftp python-ctypes cobbler cobbler-web pykickstart fence-agents xinetd rsync</span><br></pre></td></tr></table></figure></p>
 <h3 id="3-启动相关服务"><a href="#3-启动相关服务" class="headerlink" title="3.启动相关服务"></a>3.启动相关服务</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd</span><br><span class="line">systemctl start xinetd</span><br><span class="line">systemctl start cobblerd.service</span><br></pre></td></tr></table></figure>
 <h3 id="4-检查-cobbler-配置"><a href="#4-检查-cobbler-配置" class="headerlink" title="4.检查 cobbler 配置"></a>4.检查 cobbler 配置</h3><p>cobbler 的帮助命令为 cobbler –help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cobbler check</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/03/22/CentOS7安装cobbler/4.jgp" alt="4"><br>解决方法：</p>
+<p><img src="/2019/03/22/CentOS7安装cobbler/4.jpg" alt="4"><br>解决方法：</p>
 <ol>
 <li>/etc/cobbler/settings 中’server’配置成具体的服务器 ip 地址</li>
 <li>/etc/cobbler/settings 中’next_server’也修改为具体的 ip 地址</li>
@@ -517,15 +517,15 @@
 <li>应用修改 systemctl restart cobblerd、cobbler sync<h2 id="3-让-cobbler-管理-DHCP"><a href="#3-让-cobbler-管理-DHCP" class="headerlink" title="3.让 cobbler 管理 DHCP"></a>3.让 cobbler 管理 DHCP</h2><h3 id="1-编辑-cobbler-中-dhcp-模板"><a href="#1-编辑-cobbler-中-dhcp-模板" class="headerlink" title="1.编辑 cobbler 中 dhcp 模板"></a>1.编辑 cobbler 中 dhcp 模板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/cobbler</span><br><span class="line">cp dhcp.template dhcp.template.org</span><br><span class="line">sed -i &apos;/^subnet/s/192.168.1.0/10.211.55.0/&apos; dhcp.template</span><br><span class="line">sed -i &apos;/routers/s/192.168.1.5/10.211.55.1/&apos; dhcp.temlpate</span><br><span class="line">sed -i &apos;/domain-name-servers/s/192.168.1.1/114.114.114.114/&apos; dhcp.template</span><br><span class="line">sed -i &apos;/dynamic-bootps/s/192.168.1.100 192.168.1.254/10.211.55.100 10.211.55.254/&apos; dhcp.template</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>把里面的信息修改为和自己同一个局域网的<br><img src="/2019/03/22/CentOS7安装cobbler/5.jgp" alt="5"></p>
+<p>把里面的信息修改为和自己同一个局域网的<br><img src="/2019/03/22/CentOS7安装cobbler/5.jpg" alt="5"></p>
 <h3 id="2-修改-etc-cobbler-settings-配置文件"><a href="#2-修改-etc-cobbler-settings-配置文件" class="headerlink" title="2.修改/etc/cobbler/settings 配置文件"></a>2.修改/etc/cobbler/settings 配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sed -i &apos;/manage_dhcp:/s/0/1/&apos; /etc/cobbler/settings</span><br><span class="line">systemctl restart cobblerd</span><br><span class="line">sleep 2</span><br><span class="line">cobbler sync</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/03/22/CentOS7安装cobbler/6.jgp" alt="6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/dhcp/dhcpd.conf</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/03/22/CentOS7安装cobbler/7.jgp" alt="7"></p>
+<p><img src="/2019/03/22/CentOS7安装cobbler/6.jpg" alt="6"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/dhcp/dhcpd.conf</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/03/22/CentOS7安装cobbler/7.jpg" alt="7"></p>
 <h2 id="4-挂载-iso-镜像让-cobbler-处理生成"><a href="#4-挂载-iso-镜像让-cobbler-处理生成" class="headerlink" title="4.挂载 iso 镜像让 cobbler 处理生成"></a>4.挂载 iso 镜像让 cobbler 处理生成</h2><p>上传 iso 镜像文件到服务器，并挂载到目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/iso</span><br><span class="line">mount -o loop -t iso9660 CentOS-7-x86_64-Minimal-1810.iso /mnt/iso</span><br></pre></td></tr></table></figure></p>
 <p>用 cobbler 导入系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cobbler import --path=/mnt/iso --name=CentOS-7.6-x86_64 --arch=x86_64</span><br><span class="line">cobbler profile list</span><br><span class="line">cobbler profile report</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/03/22/CentOS7安装cobbler/8.jgp" alt="8"><br><img src="/2019/03/22/CentOS7安装cobbler/9.jgp" alt="9"><br>上面在导入系统的过程中 cobbler 帮我们自己生成了相关的配置，关联 dhcp，pxe安装菜单<br>生成 Kickstart 文件，可以看一下里面有哪些东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less /var/lib/cobbler/kickstarts/sample_end.ks</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/03/22/CentOS7安装cobbler/8.jpg" alt="8"><br><img src="/2019/03/22/CentOS7安装cobbler/9.jpg" alt="9"><br>上面在导入系统的过程中 cobbler 帮我们自己生成了相关的配置，关联 dhcp，pxe安装菜单<br>生成 Kickstart 文件，可以看一下里面有哪些东西<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less /var/lib/cobbler/kickstarts/sample_end.ks</span><br></pre></td></tr></table></figure></p>
 <p>生成的 Kickstart 文件可以根据自己的需要进行修改，前提是要熟悉原生的 Kickstart 语法， 可以参看“kickstart 配置文件详解和 system-config-kickstart”文章，链接地址如下: <a href="http://blog.csdn.net/taiyang1987912/article/details/42176709" target="_blank" rel="noopener">http://blog.csdn.net/taiyang1987912/article/details/42176709</a></p>
-<p>下图为 sample_end.ks 的内容：<br><img src="/2019/03/22/CentOS7安装cobbler/10.jgp" alt="10"><br><img src="/2019/03/22/CentOS7安装cobbler/11.jgp" alt="11"></p>
+<p>下图为 sample_end.ks 的内容：<br><img src="/2019/03/22/CentOS7安装cobbler/10.jpg" alt="10"><br><img src="/2019/03/22/CentOS7安装cobbler/11.jpg" alt="11"></p>
 <h2 id="5-修改-cobbler-生成的-Kickstart-文件-sample-end-ks"><a href="#5-修改-cobbler-生成的-Kickstart-文件-sample-end-ks" class="headerlink" title="5.修改 cobbler 生成的 Kickstart 文件 sample_end.ks"></a>5.修改 cobbler 生成的 Kickstart 文件 sample_end.ks</h2><p>一般安装系统的时候，最好按自己的需求进行修改一下：</p>
 <ol>
 <li>禁止防火墙，设置时区为上海、关闭色Linux</li>
